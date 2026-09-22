@@ -39,13 +39,38 @@ if st.button("🧮 Calcular"):
             if x.strip()
         ]
 
-        media = np.mean(medicoes)
+media = np.mean(medicoes)
 
-        st.success("Cálculo realizado!")
+desvio = np.std(
+    medicoes,
+    ddof=1
+)
 
-        st.metric(
-            "Valor Médio",
-            f"{media:.4f} {unidade}"
+u_a = desvio / np.sqrt(
+    len(medicoes)
+)
+
+st.success("Cálculo realizado!")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric(
+        "Valor Médio",
+        f"{media:.4f} {unidade}"
+    )
+
+with col2:
+    st.metric(
+        "Desvio Padrão",
+        f"{desvio:.4f}"
+    )
+
+with col3:
+    st.metric(
+        "Incerteza Tipo A",
+        f"{u_a:.4f}"
+    )
         )
 
     except:

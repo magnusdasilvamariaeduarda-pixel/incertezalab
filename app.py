@@ -67,7 +67,7 @@ section[data-testid="stSidebar"] *{
 # SIDEBAR
 # ==========================
 
-st.sidebar.image("mmg.png", width=220)
+st.sidebar.image("mmg (1).png", width=220)
 
 st.sidebar.markdown("---")
 
@@ -86,7 +86,7 @@ st.sidebar.write("Versão 1.0")
 # ==========================
 
 st.image(
-    "mmg.png",
+    "mmg (1).png",
     width=500
 )
 
@@ -95,7 +95,6 @@ st.markdown("""
 Sistema Automático de Cálculo de Incerteza
 </h2>
 """, unsafe_allow_html=True)
-
 st.divider()
 
 # ==========================

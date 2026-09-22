@@ -89,7 +89,11 @@ st.image(
     "mmg (1).png",
     width=500
 )
-
+st.link_button(
+    "📄 Manual de Uso",
+    "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf",
+    use_container_width=False
+)
 st.markdown("""
 <h2 style='color:#730000'>
 Sistema Automático de Cálculo de Incerteza

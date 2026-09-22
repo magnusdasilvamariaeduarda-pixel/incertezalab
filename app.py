@@ -204,16 +204,19 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
                 f"{media:.4f} ± {U:.4f} {unidade}"
             )
 
-            st.subheader("Contribuição das Fontes")
+st.subheader("Contribuição das Fontes")
 
-            contribuicoes = {
-                "Tipo A": u_a**2,
-                "Certificado": u_certificado**2,
-                "Resolução": u_resolucao**2,
-                "Deriva": u_deriva**2
-            }
+total = (
+    u_a**2 +
+    u_certificado**2 +
+    u_resolucao**2 +
+    u_deriva**2
+)
 
-            st.bar_chart(contribuicoes)
+tipo_a_pct = (u_a**2 / total) * 100
+cert_pct = (u_certificado**2 / total) * 100
+res_pct = (u_resolucao**2 / total) * 100
+deriva_pct = (u_deriva**2 / total) * 100
 
     except ValueError:
 

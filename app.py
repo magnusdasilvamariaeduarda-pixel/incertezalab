@@ -81,20 +81,17 @@ st.sidebar.markdown("---")
 
 st.sidebar.write("Versão 1.0")
 
-st.markdown(
-    """
-### 📄 Manual de Uso
-
-<a href="https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf" target="_blank">
-Clique aqui para abrir o Manual de Uso
-</a>
-""",
-    unsafe_allow_html=True
+st.image(
+    "mmg (1).png",
+    width=500
 )
+
+st.warning("TESTE DO BOTÃO")
+
 st.link_button(
     "📄 Manual de Uso",
-    "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf",
-    use_container_width=False
+    "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf"
+)
 )
 st.markdown("""
 <h2 style='color:#730000'>

@@ -92,7 +92,6 @@ st.link_button(
     "📄 Manual de Uso",
     "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf"
 )
-)
 st.markdown("""
 <h2 style='color:#730000'>
 Sistema Automático de Cálculo de Incerteza

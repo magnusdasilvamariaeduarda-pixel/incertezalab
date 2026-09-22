@@ -90,8 +90,6 @@ st.image(
     width=500
 )
 
-st.warning("TESTE DO BOTÃO")
-
 st.link_button(
     "📄 Manual de Uso",
     "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf",

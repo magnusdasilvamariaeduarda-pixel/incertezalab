@@ -90,6 +90,25 @@ st.image(
     width=500
 )
 
+st.markdown("""
+<div style="text-align:center; margin-bottom:20px;">
+<a href="https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf" target="_blank">
+<button style="
+background-color:#730000;
+color:white;
+padding:12px 30px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+">
+Manual de Uso
+</button>
+</a>
+</div>
+""", unsafe_allow_html=True)
+
 st.link_button(
     "📄 Manual de Uso",
     "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf",
@@ -349,8 +368,10 @@ st.divider()
 
 st.markdown("""
 <hr>
-<center>
-MMG • Sistema de Cálculo de Incerteza de Medição • Versão 1.0
-</center>
+<div style="text-align:center;color:#666666;font-size:14px;">
+MMG • Sistema de Cálculo de Incerteza de Medição<br>
+Engenharia Mecânica<br>
+Versão 1.0
+</div>
 """, unsafe_allow_html=True)
 st.sidebar.markdown("---")

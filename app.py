@@ -23,7 +23,7 @@ st.markdown("""
 
 /* Sidebar */
 section[data-testid="stSidebar"]{
-    background-color:#730000;
+    background-color:#111111;
 }
 
 /* Texto da Sidebar */

@@ -81,34 +81,16 @@ st.sidebar.markdown("---")
 
 st.sidebar.write("Versão 1.0")
 
-# ==========================
-# CABEÇALHO
-# ==========================
+st.markdown(
+    """
+### 📄 Manual de Uso
 
-st.image(
-    "mmg (1).png",
-    width=500
-)
-
-st.markdown("""
-<div style="text-align:center; margin-bottom:20px;">
 <a href="https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf" target="_blank">
-<button style="
-background-color:#730000;
-color:white;
-padding:12px 30px;
-border:none;
-border-radius:10px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-">
-Manual de Uso
-</button>
+Clique aqui para abrir o Manual de Uso
 </a>
-</div>
-""", unsafe_allow_html=True)
-
+""",
+    unsafe_allow_html=True
+)
 st.link_button(
     "📄 Manual de Uso",
     "https://github.com/magnusdasilvamariaeduarda-pixel/incertezalab/raw/main/Manual_MMG_IncertezaLab.pdf",

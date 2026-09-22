@@ -1,15 +1,13 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
+import plotly.express as px
 
 st.set_page_config(
     page_title="IncertezaLab",
     page_icon="📊",
     layout="wide"
 )
-
-# ==========================
-# CABEÇALHO
-# ==========================
 
 st.title("📊 IncertezaLab")
 st.caption(
@@ -32,14 +30,15 @@ with col1:
             "Pressão",
             "Comprimento",
             "Massa",
-            "Tensão Elétrica"
+            "Tensão Elétrica",
+            "Outro"
         ]
     )
 
 with col2:
     unidade = st.text_input(
         "Unidade",
-        "°C"
+        ""
     )
 
 with col3:
@@ -54,7 +53,7 @@ st.subheader("Medições")
 medicoes_texto = st.text_area(
     "",
     height=180,
-    placeholder="Digite uma medição por linha\n\n72.4\n72.5\n72.3\n72.4"
+    placeholder="Digite uma medição por linha\n\n97\n85\n102\n94\n88"
 )
 
 # ==========================
@@ -63,9 +62,9 @@ medicoes_texto = st.text_area(
 
 st.subheader("Fontes de Incerteza Tipo B")
 
-col4, col5, col6 = st.columns(3)
+c1, c2, c3 = st.columns(3)
 
-with col4:
+with c1:
     u_certificado = st.number_input(
         "Certificado",
         min_value=0.0,
@@ -73,7 +72,7 @@ with col4:
         step=0.01
     )
 
-with col5:
+with c2:
     u_resolucao = st.number_input(
         "Resolução",
         min_value=0.0,
@@ -81,7 +80,7 @@ with col5:
         step=0.01
     )
 
-with col6:
+with c3:
     u_deriva = st.number_input(
         "Deriva",
         min_value=0.0,
@@ -92,7 +91,7 @@ with col6:
 st.divider()
 
 # ==========================
-# BOTÃO
+# CÁLCULO
 # ==========================
 
 if st.button("🧮 Calcular Incerteza", use_container_width=True):
@@ -150,50 +149,50 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
 
             st.subheader("Resultados")
 
-            c1, c2, c3, c4 = st.columns(4)
+            r1, r2, r3, r4 = st.columns(4)
 
-            with c1:
+            with r1:
                 st.metric(
                     "Valor Médio",
-                    f"{media:.4f}"
+                    f"{media:.6f}"
                 )
 
-            with c2:
+            with r2:
                 st.metric(
                     "Desvio Padrão",
-                    f"{desvio:.4f}"
+                    f"{desvio:.6f}"
                 )
 
-            with c3:
+            with r3:
                 st.metric(
                     "Tipo A",
-                    f"{u_a:.4f}"
+                    f"{u_a:.6f}"
                 )
 
-            with c4:
+            with r4:
                 st.metric(
                     "Tipo B",
-                    f"{u_b:.4f}"
+                    f"{u_b:.6f}"
                 )
 
-            c5, c6, c7 = st.columns(3)
+            r5, r6, r7 = st.columns(3)
 
-            with c5:
+            with r5:
                 st.metric(
                     "Incerteza Combinada",
-                    f"{uc:.4f}"
+                    f"{uc:.6f}"
                 )
 
-            with c6:
+            with r6:
                 st.metric(
                     "k",
                     f"{k:.3f}"
                 )
 
-            with c7:
+            with r7:
                 st.metric(
                     "Incerteza Expandida",
-                    f"{U:.4f}"
+                    f"{U:.6f}"
                 )
 
             st.divider()
@@ -201,22 +200,49 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
             st.subheader("Resultado Final")
 
             st.success(
-                f"{media:.4f} ± {U:.4f} {unidade}"
+                f"{media:.6f} ± {U:.6f} {unidade}"
             )
 
-st.subheader("Contribuição das Fontes")
+            st.divider()
 
-total = (
-    u_a**2 +
-    u_certificado**2 +
-    u_resolucao**2 +
-    u_deriva**2
-)
+            st.subheader("Contribuição das Fontes")
 
-tipo_a_pct = (u_a**2 / total) * 100
-cert_pct = (u_certificado**2 / total) * 100
-res_pct = (u_resolucao**2 / total) * 100
-deriva_pct = (u_deriva**2 / total) * 100
+            total = (
+                u_a**2 +
+                u_certificado**2 +
+                u_resolucao**2 +
+                u_deriva**2
+            )
+
+            dados = pd.DataFrame(
+                {
+                    "Fonte": [
+                        "Tipo A",
+                        "Certificado",
+                        "Resolução",
+                        "Deriva"
+                    ],
+                    "Percentual": [
+                        (u_a**2 / total) * 100,
+                        (u_certificado**2 / total) * 100,
+                        (u_resolucao**2 / total) * 100,
+                        (u_deriva**2 / total) * 100
+                    ]
+                }
+            )
+
+            fig = px.pie(
+                dados,
+                names="Fonte",
+                values="Percentual",
+                hole=0.35,
+                title="Participação das fontes na incerteza total"
+            )
+
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
 
     except ValueError:
 

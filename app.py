@@ -18,7 +18,7 @@ st.markdown("""
 
 /* Fundo */
 .stApp{
-    background-color:#f5f5f5;
+    background-color:white;
 }
 
 /* Sidebar */

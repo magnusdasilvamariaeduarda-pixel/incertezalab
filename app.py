@@ -342,6 +342,9 @@ if st.button(
 
 st.divider()
 
-st.caption(
-    "MMG • Automatic Uncertainty System"
-)
+st.markdown("""
+<hr>
+<center>
+MMG • Sistema de Cálculo de Incerteza de Medição • Versão 1.0
+</center>
+""", unsafe_allow_html=True)

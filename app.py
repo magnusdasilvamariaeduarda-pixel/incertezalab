@@ -3,61 +3,104 @@ import numpy as np
 
 st.set_page_config(
     page_title="IncertezaLab",
-    page_icon="📊"
+    page_icon="📊",
+    layout="wide"
 )
+
+# ==========================
+# CABEÇALHO
+# ==========================
 
 st.title("📊 IncertezaLab")
-
-grandeza = st.selectbox(
-    "Grandeza",
-    [
-        "Temperatura",
-        "Pressão",
-        "Comprimento",
-        "Massa",
-        "Tensão"
-    ]
+st.caption(
+    "Sistema para cálculo automático de incerteza de medição"
 )
 
-unidade = st.text_input(
-    "Unidade",
-    "°C"
-)
+st.divider()
+
+# ==========================
+# DADOS DA MEDIÇÃO
+# ==========================
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    grandeza = st.selectbox(
+        "Grandeza",
+        [
+            "Temperatura",
+            "Pressão",
+            "Comprimento",
+            "Massa",
+            "Tensão Elétrica"
+        ]
+    )
+
+with col2:
+    unidade = st.text_input(
+        "Unidade",
+        "°C"
+    )
+
+with col3:
+    confianca = st.selectbox(
+        "Nível de confiança",
+        ["90%", "95%", "99%"],
+        index=1
+    )
+
+st.subheader("Medições")
 
 medicoes_texto = st.text_area(
-    "Medições (uma por linha)",
-    placeholder="72.4\n72.5\n72.3\n72.4"
+    "",
+    height=180,
+    placeholder="Digite uma medição por linha\n\n72.4\n72.5\n72.3\n72.4"
 )
+
+# ==========================
+# FONTES TIPO B
+# ==========================
 
 st.subheader("Fontes de Incerteza Tipo B")
 
-u_certificado = st.number_input(
-    "Incerteza padrão do certificado",
-    min_value=0.0,
-    value=0.25,
-    step=0.01
-)
+col4, col5, col6 = st.columns(3)
 
-u_resolucao = st.number_input(
-    "Incerteza da resolução",
-    min_value=0.0,
-    value=0.03,
-    step=0.01
-)
+with col4:
+    u_certificado = st.number_input(
+        "Certificado",
+        min_value=0.0,
+        value=0.25,
+        step=0.01
+    )
 
-u_deriva = st.number_input(
-    "Incerteza da deriva",
-    min_value=0.0,
-    value=0.00,
-    step=0.01
-)
+with col5:
+    u_resolucao = st.number_input(
+        "Resolução",
+        min_value=0.0,
+        value=0.03,
+        step=0.01
+    )
 
-if st.button("🧮 Calcular"):
+with col6:
+    u_deriva = st.number_input(
+        "Deriva",
+        min_value=0.0,
+        value=0.00,
+        step=0.01
+    )
+
+st.divider()
+
+# ==========================
+# BOTÃO
+# ==========================
+
+if st.button("🧮 Calcular Incerteza", use_container_width=True):
 
     try:
 
         medicoes = [
-            float(x)
+            float(x.replace(",", "."))
             for x in medicoes_texto.splitlines()
             if x.strip()
         ]
@@ -81,14 +124,23 @@ if st.button("🧮 Calcular"):
                 len(medicoes)
             )
 
-            uc = np.sqrt(
-                u_a**2 +
+            u_b = np.sqrt(
                 u_certificado**2 +
                 u_resolucao**2 +
                 u_deriva**2
             )
 
-            k = 2
+            uc = np.sqrt(
+                u_a**2 +
+                u_b**2
+            )
+
+            if confianca == "90%":
+                k = 1.645
+            elif confianca == "95%":
+                k = 2.0
+            else:
+                k = 2.576
 
             U = k * uc
 
@@ -96,47 +148,81 @@ if st.button("🧮 Calcular"):
                 "Cálculo realizado com sucesso!"
             )
 
-            col1, col2, col3 = st.columns(3)
+            st.subheader("Resultados")
 
-            with col1:
+            c1, c2, c3, c4 = st.columns(4)
+
+            with c1:
                 st.metric(
                     "Valor Médio",
-                    f"{media:.4f} {unidade}"
+                    f"{media:.4f}"
                 )
 
-            with col2:
+            with c2:
                 st.metric(
                     "Desvio Padrão",
                     f"{desvio:.4f}"
                 )
 
-            with col3:
+            with c3:
                 st.metric(
-                    "Incerteza Tipo A",
+                    "Tipo A",
                     f"{u_a:.4f}"
                 )
 
-            st.subheader("Resultado Final")
-
-            col4, col5 = st.columns(2)
-
-            with col4:
+            with c4:
                 st.metric(
-                    "Incerteza Combinada (uc)",
+                    "Tipo B",
+                    f"{u_b:.4f}"
+                )
+
+            c5, c6, c7 = st.columns(3)
+
+            with c5:
+                st.metric(
+                    "Incerteza Combinada",
                     f"{uc:.4f}"
                 )
 
-            with col5:
+            with c6:
                 st.metric(
-                    "Incerteza Expandida (U)",
+                    "k",
+                    f"{k:.3f}"
+                )
+
+            with c7:
+                st.metric(
+                    "Incerteza Expandida",
                     f"{U:.4f}"
                 )
+
+            st.divider()
+
+            st.subheader("Resultado Final")
+
+            st.success(
+                f"{media:.4f} ± {U:.4f} {unidade}"
+            )
+
+            st.subheader("Contribuição das Fontes")
+
+            contribuicoes = {
+                "Tipo A": u_a**2,
+                "Certificado": u_certificado**2,
+                "Resolução": u_resolucao**2,
+                "Deriva": u_deriva**2
+            }
+
+            st.bar_chart(contribuicoes)
 
     except ValueError:
 
         st.error(
-            "Verifique as medições informadas."
+            "Verifique os valores informados."
         )
-st.success(
-    f"Resultado: {media:.4f} ± {U:.4f} {unidade}"
+
+st.divider()
+
+st.caption(
+    "IncertezaLab • Versão 1.0"
 )

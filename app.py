@@ -26,7 +26,7 @@ unidade = st.text_input(
 
 medicoes_texto = st.text_area(
     "Medições (uma por linha)",
-    placeholder="72.4\n72.5\n72.3"
+    placeholder="72.4\n72.5\n72.3\n72.4"
 )
 
 if st.button("🧮 Calcular"):
@@ -39,41 +39,44 @@ if st.button("🧮 Calcular"):
             if x.strip()
         ]
 
-media = np.mean(medicoes)
+        if len(medicoes) < 2:
+            st.error("Informe pelo menos duas medições.")
+        else:
 
-desvio = np.std(
-    medicoes,
-    ddof=1
-)
+            media = np.mean(medicoes)
 
-u_a = desvio / np.sqrt(
-    len(medicoes)
-)
+            desvio = np.std(
+                medicoes,
+                ddof=1
+            )
 
-st.success("Cálculo realizado!")
+            u_a = desvio / np.sqrt(
+                len(medicoes)
+            )
 
-col1, col2, col3 = st.columns(3)
+            st.success("Cálculo realizado com sucesso!")
 
-with col1:
-    st.metric(
-        "Valor Médio",
-        f"{media:.4f} {unidade}"
-    )
+            col1, col2, col3 = st.columns(3)
 
-with col2:
-    st.metric(
-        "Desvio Padrão",
-        f"{desvio:.4f}"
-    )
+            with col1:
+                st.metric(
+                    "Valor Médio",
+                    f"{media:.4f} {unidade}"
+                )
 
-with col3:
-    st.metric(
-        "Incerteza Tipo A",
-        f"{u_a:.4f}"
-    )
-        )
+            with col2:
+                st.metric(
+                    "Desvio Padrão",
+                    f"{desvio:.4f}"
+                )
 
-    except:
+            with col3:
+                st.metric(
+                    "Incerteza Tipo A",
+                    f"{u_a:.4f}"
+                )
+
+    except ValueError:
 
         st.error(
             "Verifique as medições informadas."

@@ -29,6 +29,29 @@ medicoes_texto = st.text_area(
     placeholder="72.4\n72.5\n72.3\n72.4"
 )
 
+st.subheader("Fontes de Incerteza Tipo B")
+
+u_certificado = st.number_input(
+    "Incerteza padrão do certificado",
+    min_value=0.0,
+    value=0.25,
+    step=0.01
+)
+
+u_resolucao = st.number_input(
+    "Incerteza da resolução",
+    min_value=0.0,
+    value=0.03,
+    step=0.01
+)
+
+u_deriva = st.number_input(
+    "Incerteza da deriva",
+    min_value=0.0,
+    value=0.00,
+    step=0.01
+)
+
 if st.button("🧮 Calcular"):
 
     try:
@@ -40,7 +63,11 @@ if st.button("🧮 Calcular"):
         ]
 
         if len(medicoes) < 2:
-            st.error("Informe pelo menos duas medições.")
+
+            st.error(
+                "Informe pelo menos duas medições."
+            )
+
         else:
 
             media = np.mean(medicoes)
@@ -54,7 +81,20 @@ if st.button("🧮 Calcular"):
                 len(medicoes)
             )
 
-            st.success("Cálculo realizado com sucesso!")
+            uc = np.sqrt(
+                u_a**2 +
+                u_certificado**2 +
+                u_resolucao**2 +
+                u_deriva**2
+            )
+
+            k = 2
+
+            U = k * uc
+
+            st.success(
+                "Cálculo realizado com sucesso!"
+            )
 
             col1, col2, col3 = st.columns(3)
 
@@ -74,6 +114,22 @@ if st.button("🧮 Calcular"):
                 st.metric(
                     "Incerteza Tipo A",
                     f"{u_a:.4f}"
+                )
+
+            st.subheader("Resultado Final")
+
+            col4, col5 = st.columns(2)
+
+            with col4:
+                st.metric(
+                    "Incerteza Combinada (uc)",
+                    f"{uc:.4f}"
+                )
+
+            with col5:
+                st.metric(
+                    "Incerteza Expandida (U)",
+                    f"{U:.4f}"
                 )
 
     except ValueError:

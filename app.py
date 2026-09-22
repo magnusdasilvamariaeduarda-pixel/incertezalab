@@ -91,8 +91,8 @@ st.image(
 )
 
 st.markdown("""
-<h2 style='color:#730000; text-align:center;'>
-MMG IncertezaLab
+<h2 style='color:#730000'>
+Sistema Automático de Cálculo de Incerteza
 </h2>
 """, unsafe_allow_html=True)
 st.divider()

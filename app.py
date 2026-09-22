@@ -4,20 +4,102 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(
-    page_title="IncertezaLab",
-    page_icon="📊",
+    page_title="MMG",
+    page_icon="⚙️",
     layout="wide"
 )
 
-st.title("📊 IncertezaLab")
-st.caption(
-    "Sistema para cálculo automático de incerteza de medição"
+# ==========================
+# ESTILO VISUAL MMG
+# ==========================
+
+st.markdown("""
+<style>
+
+/* Fundo */
+.stApp{
+    background-color:#f5f5f5;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"]{
+    background-color:#111111;
+}
+
+/* Texto da Sidebar */
+section[data-testid="stSidebar"] *{
+    color:white;
+}
+
+/* Cards */
+[data-testid="stMetric"]{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    border-left:6px solid #730000;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.10);
+}
+
+/* Botões */
+.stButton button{
+    background-color:#730000;
+    color:white;
+    border:none;
+    border-radius:12px;
+    height:55px;
+    font-weight:bold;
+}
+
+.stButton button:hover{
+    background-color:#500000;
+}
+
+/* Inputs */
+.stTextInput input,
+.stTextArea textarea{
+    border-radius:10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# ==========================
+# SIDEBAR
+# ==========================
+
+st.sidebar.image("mmg.png", width=220)
+
+st.sidebar.markdown("---")
+
+st.sidebar.header("MMG")
+
+st.sidebar.write(
+    "Automatic Uncertainty System"
 )
+
+st.sidebar.markdown("---")
+
+st.sidebar.write("Versão 1.0")
+
+# ==========================
+# CABEÇALHO
+# ==========================
+
+st.image(
+    "mmg.png",
+    width=500
+)
+
+st.markdown("""
+<h2 style='color:#730000'>
+Sistema Automático de Cálculo de Incerteza
+</h2>
+""", unsafe_allow_html=True)
 
 st.divider()
 
 # ==========================
-# DADOS DA MEDIÇÃO
+# DADOS
 # ==========================
 
 col1, col2, col3 = st.columns(3)
@@ -44,7 +126,11 @@ with col2:
 with col3:
     confianca = st.selectbox(
         "Nível de confiança",
-        ["90%", "95%", "99%"],
+        [
+            "90%",
+            "95%",
+            "99%"
+        ],
         index=1
     )
 
@@ -53,11 +139,11 @@ st.subheader("Medições")
 medicoes_texto = st.text_area(
     "",
     height=180,
-    placeholder="Digite uma medição por linha\n\n97\n85\n102\n94\n88"
+    placeholder="Digite uma medição por linha"
 )
 
 # ==========================
-# FONTES TIPO B
+# TIPO B
 # ==========================
 
 st.subheader("Fontes de Incerteza Tipo B")
@@ -91,10 +177,13 @@ with c3:
 st.divider()
 
 # ==========================
-# CÁLCULO
+# BOTÃO
 # ==========================
 
-if st.button("🧮 Calcular Incerteza", use_container_width=True):
+if st.button(
+    "🧮 Calcular Incerteza",
+    use_container_width=True
+):
 
     try:
 
@@ -143,10 +232,6 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
 
             U = k * uc
 
-            st.success(
-                "Cálculo realizado com sucesso!"
-            )
-
             st.subheader("Resultados")
 
             r1, r2, r3, r4 = st.columns(4)
@@ -175,37 +260,27 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
                     f"{u_b:.6f}"
                 )
 
-            r5, r6, r7 = st.columns(3)
-
-            with r5:
-                st.metric(
-                    "Incerteza Combinada",
-                    f"{uc:.6f}"
-                )
-
-            with r6:
-                st.metric(
-                    "k",
-                    f"{k:.3f}"
-                )
-
-            with r7:
-                st.metric(
-                    "Incerteza Expandida",
-                    f"{U:.6f}"
-                )
-
             st.divider()
 
-            st.subheader("Resultado Final")
-
-            st.success(
-                f"{media:.6f} ± {U:.6f} {unidade}"
+            st.markdown(
+                f"""
+                <div style="
+                background:#730000;
+                color:white;
+                padding:35px;
+                border-radius:20px;
+                text-align:center;
+                font-size:34px;
+                font-weight:bold;
+                box-shadow:0px 6px 15px rgba(0,0,0,0.20);
+                ">
+                {media:.6f} ± {U:.6f} {unidade}
+                </div>
+                """,
+                unsafe_allow_html=True
             )
 
             st.divider()
-
-            st.subheader("Contribuição das Fontes")
 
             total = (
                 u_a**2 +
@@ -216,17 +291,17 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
 
             dados = pd.DataFrame(
                 {
-                    "Fonte": [
+                    "Fonte":[
                         "Tipo A",
                         "Certificado",
                         "Resolução",
                         "Deriva"
                     ],
-                    "Percentual": [
-                        (u_a**2 / total) * 100,
-                        (u_certificado**2 / total) * 100,
-                        (u_resolucao**2 / total) * 100,
-                        (u_deriva**2 / total) * 100
+                    "Percentual":[
+                        (u_a**2/total)*100,
+                        (u_certificado**2/total)*100,
+                        (u_resolucao**2/total)*100,
+                        (u_deriva**2/total)*100
                     ]
                 }
             )
@@ -235,8 +310,24 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
                 dados,
                 names="Fonte",
                 values="Percentual",
-                hole=0.35,
-                title="Participação das fontes na incerteza total"
+                hole=0.45,
+                title="Contribuição das Fontes"
+            )
+
+            fig.update_traces(
+                marker=dict(
+                    colors=[
+                        "#730000",
+                        "#A61B1B",
+                        "#D8B6B6",
+                        "#111111"
+                    ]
+                )
+            )
+
+            fig.update_layout(
+                paper_bgcolor="white",
+                plot_bgcolor="white"
             )
 
             st.plotly_chart(
@@ -253,5 +344,5 @@ if st.button("🧮 Calcular Incerteza", use_container_width=True):
 st.divider()
 
 st.caption(
-    "IncertezaLab • Versão 1.0"
+    "MMG • Automatic Uncertainty System"
 )

@@ -137,3 +137,6 @@ if st.button("🧮 Calcular"):
         st.error(
             "Verifique as medições informadas."
         )
+st.success(
+    f"Resultado: {media:.4f} ± {U:.4f} {unidade}"
+)

@@ -348,7 +348,7 @@ if st.button(
                 """,
                 unsafe_allow_html=True
             )
-                st.divider()
+            st.divider()
 
             total = (
                 u_a**2 +

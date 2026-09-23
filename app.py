@@ -2,12 +2,15 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import datetime
 
 st.set_page_config(
     page_title="MMG",
     page_icon="⚙️",
     layout="wide"
 )
+if "historico" not in st.session_state:
+    st.session_state.historico = []
 
 # ==========================
 # ESTILO VISUAL MMG
@@ -311,7 +314,13 @@ if st.button(
                 k = 2.576
 
             U = k * uc
-
+            
+st.session_state.historico.append({
+    "Data": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+    "Instrumento": instrumento,
+    "Resultado": f"{media:.6f} ± {U:.6f} {unidade}"
+})
+            
             st.subheader("Resultados")
 
             r1, r2, r3, r4 = st.columns(4)
@@ -420,8 +429,21 @@ if st.button(
         st.error(
             "Verifique os valores informados."
         )
+# HISTÓRICO
+if st.session_state.historico:
 
-st.divider()
+    st.divider()
+
+    st.subheader("Histórico de Medições")
+
+    historico_df = pd.DataFrame(
+        st.session_state.historico
+    )
+
+    st.dataframe(
+        historico_df,
+        use_container_width=True
+    )
 
 st.markdown("""
 <hr>

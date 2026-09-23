@@ -319,7 +319,8 @@ if st.button(
                     "Desvio Padrão",
                     f"{desvio:.6f}"
                 )
-                            with r3:
+
+            with r3:
                 st.metric(
                     "Tipo A",
                     f"{u_a:.6f}"
@@ -330,8 +331,6 @@ if st.button(
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
-                            st.divider()
-
             st.markdown(
                 f"""
                 <div style="

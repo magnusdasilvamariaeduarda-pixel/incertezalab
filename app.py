@@ -198,7 +198,7 @@ else:
 
 st.subheader("Fontes de Incerteza Tipo B")
 
-with st.expander("ℹ️ O que significam essas incertezas?"):
+with st.expander("ℹ️ Informações; "):
 
     st.write("""
 📄 Certificado: valor informado pelo certificado de calibração.

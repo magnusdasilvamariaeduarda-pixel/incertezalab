@@ -215,7 +215,7 @@ with st.expander("➕ Cadastrar Novo Instrumento"):
     )
 
     if st.button("Salvar Instrumento"):
-        instrumentos[novo_nome] = {
+  st.session_state.instrumentos[novo_nome] = {
             "certificado": novo_cert,
             "resolucao": novo_res,
             "deriva": novo_der

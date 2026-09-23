@@ -201,7 +201,7 @@ st.subheader("  ")
 with st.expander("ℹ️ Informações; "):
 
     st.write("""
-O que signfica: CERTIFICADO, RESOLUÇÃO E DERIVA.
+O que signfica: Certificado, Resolução e Deriva.
 
 📄 Certificado: valor informado pelo certificado de calibração.
 

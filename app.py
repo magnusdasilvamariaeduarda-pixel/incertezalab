@@ -413,7 +413,7 @@ if st.button(
                 fig,
                 use_container_width=True
             )
-              st.subheader("📖 Leitura do Gráfico")
+            st.subheader("📖 Leitura do Gráfico")
 
     maior_fonte = dados.loc[
         dados["Percentual"].idxmax(),

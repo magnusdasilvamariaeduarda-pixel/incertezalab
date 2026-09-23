@@ -145,6 +145,17 @@ medicoes_texto = st.text_area(
 # TIPO B
 # ==========================
 
+instrumento = st.selectbox(
+    "Instrumento",
+    [
+        "Paquímetro",
+        "Micrômetro",
+        "Multímetro",
+        "Termômetro",
+        "Balança",
+        "Outro"
+    ]
+)
 st.subheader("Fontes de Incerteza Tipo B")
 
 c1, c2, c3 = st.columns(3)

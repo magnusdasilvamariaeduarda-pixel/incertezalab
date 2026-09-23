@@ -313,7 +313,7 @@ if st.button(
             else:
                 k = 2.576
 
-                     U = k * uc
+            U = k * uc
 
             st.session_state.historico.append({
                 "Data": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),

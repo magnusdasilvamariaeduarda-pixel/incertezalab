@@ -138,12 +138,20 @@ with col3:
 
 st.subheader("Medições")
 
-medicoes_texto = st.text_area(
-    "Medições",
-    height=180,
-    placeholder="Digite uma medição por linha usando ponto decimal.\n\n10.25\n10.31\n10.28"
-)
+medicoes = []
 
+for i in range(10):
+    valor = st.number_input(
+        f"Medição {i + 1}",
+        min_value=0.0,
+        value=0.0,
+        step=0.01,
+        format="%.2f",
+        key=f"medicao_{i}"
+    )
+
+    if valor != 0:
+        medicoes.append(valor)
 # ==========================
 # TIPO B
 # ==========================

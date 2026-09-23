@@ -369,7 +369,7 @@ if st.button(
 
     except ValueError:
         st.error("Verifique os valores informados.")
-        )
+        
 # HISTÓRICO
 if st.session_state.historico:
 

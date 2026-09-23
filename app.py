@@ -447,27 +447,63 @@ if st.button(
                     "influência sobre a incerteza final."
                 )
 
-            st.markdown(
+                        st.markdown(
                 f"""
                 <div style="
-                    background:#f5f5f5;
+                    background:#ffffff;
+                    border:1px solid #dddddd;
                     border-left:6px solid #730000;
-                    padding:20px;
-                    border-radius:10px;
-                    margin-top:10px;
+                    padding:22px 25px;
+                    border-radius:14px;
+                    margin-top:15px;
+                    box-shadow:0px 3px 10px rgba(0,0,0,0.08);
                 ">
-                    <h4 style="color:#730000; margin-top:0;">
-                        📌 Principal contribuição
-                    </h4>
 
-                    <p style="font-size:18px; margin-bottom:8px;">
-                        <strong>{maior_fonte}</strong>
-                        ({maior_percentual:.2f}%)
-                    </p>
+                    <div style="
+                        color:#730000;
+                        font-size:15px;
+                        font-weight:bold;
+                        margin-bottom:12px;
+                    ">
+                        📌 PRINCIPAL CONTRIBUIÇÃO
+                    </div>
 
-                    <p style="font-size:16px; color:#333; margin-bottom:0;">
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        gap:15px;
+                        margin-bottom:12px;
+                    ">
+
+                        <div style="
+                            font-size:26px;
+                            font-weight:bold;
+                            color:#222222;
+                        ">
+                            {maior_fonte}
+                        </div>
+
+                        <div style="
+                            background:#730000;
+                            color:white;
+                            padding:6px 12px;
+                            border-radius:20px;
+                            font-size:14px;
+                            font-weight:bold;
+                        ">
+                            {maior_percentual:.2f}%
+                        </div>
+
+                    </div>
+
+                    <div style="
+                        color:#555555;
+                        font-size:16px;
+                        line-height:1.6;
+                    ">
                         {explicacao}
-                    </p>
+                    </div>
+
                 </div>
                 """,
                 unsafe_allow_html=True

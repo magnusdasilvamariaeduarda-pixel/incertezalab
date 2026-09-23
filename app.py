@@ -269,12 +269,6 @@ if st.button(
 
     try:
 
-        medicoes = [
-            float(x.replace(",", "."))
-            for x in medicoes_texto.splitlines()
-            if x.strip()
-        ]
-
         if len(medicoes) < 2:
 
             st.error(

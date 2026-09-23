@@ -201,7 +201,10 @@ st.subheader("  ")
 with st.expander("ℹ️ Informações; "):
 
     st.write("""
-O que signfica: Certificado, Resolução e Deriva.
+O que signfica: Certificado, Resolução e Deriva; E Inct. Tipo A e B
+📊 Tipo A: incerteza obtida a partir da repetição das medições. Quanto maior a variação entre os valores medidos, maior será a incerteza Tipo A.
+
+📐 Tipo B: incerteza calculada a partir das características do instrumento, como certificado, resolução e deriva.
 
 📄 Certificado: valor informado pelo certificado de calibração.
 

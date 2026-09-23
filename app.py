@@ -339,7 +339,7 @@ if st.button(
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
-                            # ==========================
+            # ==========================
             # GRÁFICO DE CONTRIBUIÇÃO
             # ==========================
 
@@ -447,7 +447,7 @@ if st.button(
                     "influência sobre a incerteza final."
                 )
 
-                        st.markdown(
+             st.markdown(
                 f"""
                 <div style="
                     background:#ffffff;

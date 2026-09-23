@@ -178,12 +178,12 @@ instrumentos = {
         "resolucao": 0.10,
         "deriva": 0.05
     },
-    "Balança": {
-        "certificado": 0.02,
-        "resolucao": 0.01,
-        "deriva": 0.01
-    }
-    st.divider()
+  "Balança": {
+    "certificado": 0.02,
+    "resolucao": 0.01,
+    "deriva": 0.01
+}
+}
 
 if instrumento in instrumentos:
     valor_certificado = instrumentos[instrumento]["certificado"]

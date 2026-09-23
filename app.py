@@ -178,13 +178,46 @@ instrumentos = {
         "resolucao": 0.10,
         "deriva": 0.05
     },
-  "Balança": {
-    "certificado": 0.02,
-    "resolucao": 0.01,
-    "deriva": 0.01
+    "Balança": {
+        "certificado": 0.02,
+        "resolucao": 0.01,
+        "deriva": 0.01
+    }
 }
-}
+st.markdown("---")
+st.subheader("Cadastrar Novo Instrumento")
 
+novo_nome = st.text_input("Nome do Instrumento")
+
+novo_cert = st.number_input(
+    "Certificado do novo instrumento",
+    min_value=0.0,
+    value=0.00,
+    step=0.01
+)
+
+novo_res = st.number_input(
+    "Resolução do novo instrumento",
+    min_value=0.0,
+    value=0.00,
+    step=0.01
+)
+
+novo_der = st.number_input(
+    "Deriva do novo instrumento",
+    min_value=0.0,
+    value=0.00,
+    step=0.01
+)
+
+if st.button("Salvar Instrumento"):
+    instrumentos[novo_nome] = {
+        "certificado": novo_cert,
+        "resolucao": novo_res,
+        "deriva": novo_der
+    }
+
+    st.success("Instrumento cadastrado.")
 if instrumento in instrumentos:
     valor_certificado = instrumentos[instrumento]["certificado"]
     valor_resolucao = instrumentos[instrumento]["resolucao"]

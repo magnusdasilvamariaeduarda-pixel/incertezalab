@@ -313,14 +313,14 @@ if st.button(
             else:
                 k = 2.576
 
-            U = k * uc
-            
-st.session_state.historico.append({
-    "Data": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
-    "Instrumento": instrumento,
-    "Resultado": f"{media:.6f} ± {U:.6f} {unidade}"
-})
-            
+                     U = k * uc
+
+            st.session_state.historico.append({
+                "Data": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+                "Instrumento": instrumento,
+                "Resultado": f"{media:.6f} ± {U:.6f} {unidade}"
+            })
+
             st.subheader("Resultados")
 
             r1, r2, r3, r4 = st.columns(4)
@@ -348,82 +348,6 @@ st.session_state.historico.append({
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
-
-            st.divider()
-
-            st.markdown(
-                f"""
-                <div style="
-                background:#730000;
-                color:white;
-                padding:35px;
-                border-radius:20px;
-                text-align:center;
-                font-size:34px;
-                font-weight:bold;
-                box-shadow:0px 6px 15px rgba(0,0,0,0.20);
-                ">
-                {media:.6f} ± {U:.6f} {unidade}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-            st.divider()
-
-            total = (
-                u_a**2 +
-                u_certificado**2 +
-                u_resolucao**2 +
-                u_deriva**2
-            )
-
-            dados = pd.DataFrame(
-                {
-                    "Fonte":[
-                        "Tipo A",
-                        "Certificado",
-                        "Resolução",
-                        "Deriva"
-                    ],
-                    "Percentual":[
-                        (u_a**2/total)*100,
-                        (u_certificado**2/total)*100,
-                        (u_resolucao**2/total)*100,
-                        (u_deriva**2/total)*100
-                    ]
-                }
-            )
-
-            fig = px.pie(
-                dados,
-                names="Fonte",
-                values="Percentual",
-                hole=0.45,
-                title="Contribuição das Fontes"
-            )
-
-            fig.update_traces(
-                marker=dict(
-                    colors=[
-                        "#730000",
-                        "#A61B1B",
-                        "#D8B6B6",
-                        "#111111"
-                    ]
-                )
-            )
-
-            fig.update_layout(
-                paper_bgcolor="white",
-                plot_bgcolor="white"
-            )
-
-            st.plotly_chart(
-                fig,
-                use_container_width=True
-            )
-
     except ValueError:
 
         st.error(

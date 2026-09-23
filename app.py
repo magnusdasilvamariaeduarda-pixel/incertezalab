@@ -339,8 +339,8 @@ if st.button(
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
-            # ==========================
-            # GRÁFICO DE CONTRIBUIÇÃO
+                      # ==========================
+            # GRÁFICO
             # ==========================
 
             st.divider()
@@ -399,7 +399,7 @@ if st.button(
             )
 
             # ==========================
-            # LEITURA AUTOMÁTICA
+            # LEITURA DO GRÁFICO
             # ==========================
 
             st.subheader("📖 Leitura do Gráfico")
@@ -414,40 +414,36 @@ if st.button(
             if maior_fonte == "Tipo A":
 
                 explicacao = (
-                    "A maior contribuição para a incerteza vem das "
-                    "medições repetidas. Isso indica que a variação "
-                    "observada durante as medições é a principal fonte "
-                    "de incerteza do resultado."
+                    "A maior contribuição vem das medições repetidas. "
+                    "Isso indica que a variação observada entre as "
+                    "medições é a principal fonte de incerteza."
                 )
 
             elif maior_fonte == "Certificado":
 
                 explicacao = (
                     "A maior contribuição vem do certificado de "
-                    "calibração do instrumento. Isso indica que a "
-                    "incerteza informada na calibração possui maior "
-                    "influência sobre o resultado final."
+                    "calibração. A incerteza informada na calibração "
+                    "possui maior influência sobre o resultado."
                 )
 
             elif maior_fonte == "Resolução":
 
                 explicacao = (
                     "A maior contribuição vem da resolução do "
-                    "instrumento. Isso indica que a capacidade de "
-                    "leitura do instrumento possui maior influência "
-                    "sobre a incerteza final."
+                    "instrumento. A capacidade de leitura possui "
+                    "maior influência sobre a incerteza."
                 )
 
             else:
 
                 explicacao = (
                     "A maior contribuição vem da deriva do instrumento. "
-                    "Isso indica que as alterações das características "
-                    "do instrumento ao longo do tempo possuem maior "
-                    "influência sobre a incerteza final."
+                    "As alterações das características do instrumento "
+                    "ao longo do tempo possuem maior influência."
                 )
 
-             st.markdown(
+            st.markdown(
                 f"""
                 <div style="
                     background:#ffffff;
@@ -508,7 +504,7 @@ if st.button(
                 """,
                 unsafe_allow_html=True
             )
-
+            
     except ValueError:
         st.error("Verifique os valores informados.")
         

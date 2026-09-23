@@ -232,8 +232,6 @@ O que signfica: Certificado, Resolução e Deriva; E Inct. Tipo A e B
 
 c1, c2, c3 = st.columns(3)
 
-c1, c2, c3 = st.columns(3)
-
 with c1:
     u_certificado = st.number_input(
         "Certificado",
@@ -341,6 +339,114 @@ if st.button(
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
+                            # ==========================
+            # GRÁFICO DE CONTRIBUIÇÃO
+            # ==========================
+
+            st.divider()
+
+            total = (
+                u_a**2 +
+                u_certificado**2 +
+                u_resolucao**2 +
+                u_deriva**2
+            )
+
+            dados = pd.DataFrame(
+                {
+                    "Fonte": [
+                        "Tipo A",
+                        "Certificado",
+                        "Resolução",
+                        "Deriva"
+                    ],
+                    "Percentual": [
+                        (u_a**2 / total) * 100,
+                        (u_certificado**2 / total) * 100,
+                        (u_resolucao**2 / total) * 100,
+                        (u_deriva**2 / total) * 100
+                    ]
+                }
+            )
+
+            fig = px.pie(
+                dados,
+                names="Fonte",
+                values="Percentual",
+                hole=0.45,
+                title="Contribuição das Fontes de Incerteza"
+            )
+
+            fig.update_traces(
+                marker=dict(
+                    colors=[
+                        "#000000",
+                        "#3B3B3B",
+                        "#707070",
+                        "#BDBDBD"
+                    ]
+                )
+            )
+
+            fig.update_layout(
+                paper_bgcolor="white",
+                plot_bgcolor="white"
+            )
+
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
+
+            # ==========================
+            # LEITURA AUTOMÁTICA
+            # ==========================
+
+            st.subheader("📖 Leitura do Gráfico")
+
+            maior_fonte = dados.loc[
+                dados["Percentual"].idxmax(),
+                "Fonte"
+            ]
+
+            maior_percentual = dados["Percentual"].max()
+
+            if maior_fonte == "Tipo A":
+
+                explicacao = (
+                    "A maior contribuição para a incerteza vem das "
+                    "medições repetidas. Isso indica que a variação "
+                    "observada durante as medições é a principal fonte "
+                    "de incerteza do resultado."
+                )
+
+            elif maior_fonte == "Certificado":
+
+                explicacao = (
+                    "A maior contribuição vem do certificado de "
+                    "calibração do instrumento. Isso indica que a "
+                    "incerteza informada na calibração possui maior "
+                    "influência sobre o resultado final."
+                )
+
+            elif maior_fonte == "Resolução":
+
+                explicacao = (
+                    "A maior contribuição vem da resolução do "
+                    "instrumento. Isso indica que a capacidade de "
+                    "leitura do instrumento possui maior influência "
+                    "sobre a incerteza final."
+                )
+
+            else:
+
+                explicacao = (
+                    "A maior contribuição vem da deriva do instrumento. "
+                    "Isso indica que as alterações das características "
+                    "do instrumento ao longo do tempo possuem maior "
+                    "influência sobre a incerteza final."
+                )
+
             st.markdown(
                 f"""
                 <div style="

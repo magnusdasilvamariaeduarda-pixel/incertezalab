@@ -214,15 +214,15 @@ with st.expander("➕ Cadastrar Novo Instrumento"):
         step=0.01
     )
 
-  if st.button("Salvar Instrumento"):
+    if st.button("Salvar Instrumento"):
 
-    st.session_state.instrumentos[novo_nome] = {
-        "certificado": novo_cert,
-        "resolucao": novo_res,
-        "deriva": novo_der
-    }
+        st.session_state.instrumentos[novo_nome] = {
+            "certificado": novo_cert,
+            "resolucao": novo_res,
+            "deriva": novo_der
+        }
 
-    st.success("Instrumento cadastrado.")
+        st.success("Instrumento cadastrado.")
 if instrumento in instrumentos:
     valor_certificado = instrumentos[instrumento]["certificado"]
     valor_resolucao = instrumentos[instrumento]["resolucao"]

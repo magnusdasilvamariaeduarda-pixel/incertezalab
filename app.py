@@ -201,6 +201,7 @@ st.subheader("  ")
 with st.expander("ℹ️ Informações; "):
 
     st.write("""
+O que signfica: CERTIFICADO, RESOLUÇÃO E DERIVA.
 📄 Certificado: valor informado pelo certificado de calibração.
 
 📏 Resolução: menor variação que o instrumento consegue mostrar.

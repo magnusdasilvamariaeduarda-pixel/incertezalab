@@ -156,11 +156,7 @@ instrumento = st.selectbox(
         "Outro"
     ]
 )
-st.subheader("Fontes de Incerteza Tipo B")
 
-c1, c2, c3 = st.columns(3)
-
-with c1:
 instrumentos = {
     "Paquímetro": {
         "certificado": 0.02,
@@ -173,6 +169,34 @@ instrumentos = {
         "deriva": 0.005
     }
 }
+
+st.subheader("Fontes de Incerteza Tipo B")
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    u_certificado = st.number_input(
+        "Certificado",
+        min_value=0.0,
+        value=0.25,
+        step=0.01
+    )
+
+with c2:
+    u_resolucao = st.number_input(
+        "Resolução",
+        min_value=0.0,
+        value=0.03,
+        step=0.01
+    )
+
+with c3:
+    u_deriva = st.number_input(
+        "Deriva",
+        min_value=0.0,
+        value=0.00,
+        step=0.01
+    )
 
 st.divider()
 

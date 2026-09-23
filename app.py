@@ -196,7 +196,7 @@ else:
     valor_resolucao = 0.00
     valor_deriva = 0.00
 
-st.subheader("Fontes de Incerteza Tipo B")
+st.subheader(" Valores ")
 
 with st.expander("ℹ️ Informações; "):
 

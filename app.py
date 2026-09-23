@@ -12,9 +12,6 @@ st.set_page_config(
 if "historico" not in st.session_state:
     st.session_state.historico = []
 
-if "instrumentos" not in st.session_state:
-    st.session_state.instrumentos = {}
-
 # ==========================
 # ESTILO VISUAL MMG
 # ==========================

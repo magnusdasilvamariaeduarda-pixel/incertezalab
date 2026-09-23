@@ -443,67 +443,14 @@ if st.button(
                     "ao longo do tempo possuem maior influência."
                 )
 
-            st.markdown(
-                f"""
-                <div style="
-                    background:#ffffff;
-                    border:1px solid #dddddd;
-                    border-left:6px solid #730000;
-                    padding:22px 25px;
-                    border-radius:14px;
-                    margin-top:15px;
-                    box-shadow:0px 3px 10px rgba(0,0,0,0.08);
-                ">
+            st.subheader("📖 Leitura do Gráfico")
 
-                    <div style="
-                        color:#730000;
-                        font-size:15px;
-                        font-weight:bold;
-                        margin-bottom:12px;
-                    ">
-                        📌 PRINCIPAL CONTRIBUIÇÃO
-                    </div>
-
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        gap:15px;
-                        margin-bottom:12px;
-                    ">
-
-                        <div style="
-                            font-size:26px;
-                            font-weight:bold;
-                            color:#222222;
-                        ">
-                            {maior_fonte}
-                        </div>
-
-                        <div style="
-                            background:#730000;
-                            color:white;
-                            padding:6px 12px;
-                            border-radius:20px;
-                            font-size:14px;
-                            font-weight:bold;
-                        ">
-                            {maior_percentual:.2f}%
-                        </div>
-
-                    </div>
-
-                    <div style="
-                        color:#555555;
-                        font-size:16px;
-                        line-height:1.6;
-                    ">
-                        {explicacao}
-                    </div>
-
-                </div>
-                """,
-                unsafe_allow_html=True
+            st.write(
+                f"**Principal contribuição:** {maior_fonte} "
+                f"({maior_percentual:.2f}%)"
             )
+
+            st.write(explicacao)
             
     except ValueError:
         st.error("Verifique os valores informados.")

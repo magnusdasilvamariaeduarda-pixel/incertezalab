@@ -443,7 +443,6 @@ if st.button(
                     "ao longo do tempo possuem maior influência."
                 )
 
-            st.subheader("📖 Leitura do Gráfico")
 
             st.write(
                 f"**Principal contribuição:** {maior_fonte} "

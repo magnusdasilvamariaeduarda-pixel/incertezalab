@@ -196,7 +196,7 @@ else:
     valor_resolucao = 0.00
     valor_deriva = 0.00
 
-st.subheader(" Valores ")
+st.subheader("  ")
 
 with st.expander("ℹ️ Informações; "):
 

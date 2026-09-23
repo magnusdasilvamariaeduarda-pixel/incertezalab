@@ -198,6 +198,18 @@ else:
 
 st.subheader("Fontes de Incerteza Tipo B")
 
+with st.expander("ℹ️ O que significam essas incertezas?"):
+
+    st.write("""
+📄 Certificado: valor informado pelo certificado de calibração.
+
+📏 Resolução: menor variação que o instrumento consegue mostrar.
+
+⏳ Deriva: alteração do instrumento causada pelo tempo e uso.
+""")
+
+c1, c2, c3 = st.columns(3)
+
 c1, c2, c3 = st.columns(3)
 
 with c1:

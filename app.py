@@ -138,9 +138,13 @@ with col3:
 
 st.subheader("Medições")
 
+if "quantidade_medicoes" not in st.session_state:
+    st.session_state.quantidade_medicoes = 3
+
 medicoes = []
 
-for i in range(10):
+for i in range(st.session_state.quantidade_medicoes):
+
     valor = st.number_input(
         f"Medição {i + 1}",
         min_value=0.0,
@@ -152,6 +156,10 @@ for i in range(10):
 
     if valor != 0:
         medicoes.append(valor)
+
+if st.button("➕ Adicionar medição"):
+    st.session_state.quantidade_medicoes += 1
+    st.rerun()
 # ==========================
 # TIPO B
 # ==========================

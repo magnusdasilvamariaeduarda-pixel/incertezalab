@@ -348,7 +348,61 @@ if st.button(
                 """,
                 unsafe_allow_html=True
             )
-            
+                        st.divider()
+
+            total = (
+                u_a**2 +
+                u_certificado**2 +
+                u_resolucao**2 +
+                u_deriva**2
+            )
+
+            dados = pd.DataFrame(
+                {
+                    "Fonte": [
+                        "Tipo A",
+                        "Certificado",
+                        "Resolução",
+                        "Deriva"
+                    ],
+                    "Percentual": [
+                        (u_a**2 / total) * 100,
+                        (u_certificado**2 / total) * 100,
+                        (u_resolucao**2 / total) * 100,
+                        (u_deriva**2 / total) * 100
+                    ]
+                }
+            )
+
+            fig = px.pie(
+                dados,
+                names="Fonte",
+                values="Percentual",
+                hole=0.45,
+                title="Contribuição das Fontes de Incerteza"
+            )
+
+            fig.update_traces(
+                marker=dict(
+                    
+                    colors=[
+                        "#000000",
+                        "#3B3B3B",
+                        "#707070",
+                        "#BDBDBD"
+                    ]
+                )
+            )
+
+            fig.update_layout(
+                paper_bgcolor="white",
+                plot_bgcolor="white"
+            )
+
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
     except ValueError:
 
         st.error(

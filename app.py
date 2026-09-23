@@ -183,7 +183,7 @@ instrumentos = {
         "resolucao": 0.01,
         "deriva": 0.01
     }
-}
+    st.divider()
 
 if instrumento in instrumentos:
     valor_certificado = instrumentos[instrumento]["certificado"]

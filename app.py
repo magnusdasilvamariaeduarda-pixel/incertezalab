@@ -136,9 +136,9 @@ with col3:
 st.subheader("Medições")
 
 medicoes_texto = st.text_area(
-    "",
+    "Medições",
     height=180,
-    placeholder="Digite uma medição por linha"
+    placeholder="Digite uma medição por linha usando ponto decimal.\n\n10.25\n10.31\n10.28"
 )
 
 # ==========================

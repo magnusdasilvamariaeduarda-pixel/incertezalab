@@ -167,8 +167,32 @@ instrumentos = {
         "certificado": 0.01,
         "resolucao": 0.01,
         "deriva": 0.005
+    },
+    "Multímetro": {
+        "certificado": 0.05,
+        "resolucao": 0.01,
+        "deriva": 0.02
+    },
+    "Termômetro": {
+        "certificado": 0.10,
+        "resolucao": 0.10,
+        "deriva": 0.05
+    },
+    "Balança": {
+        "certificado": 0.02,
+        "resolucao": 0.01,
+        "deriva": 0.01
     }
 }
+
+if instrumento in instrumentos:
+    valor_certificado = instrumentos[instrumento]["certificado"]
+    valor_resolucao = instrumentos[instrumento]["resolucao"]
+    valor_deriva = instrumentos[instrumento]["deriva"]
+else:
+    valor_certificado = 0.00
+    valor_resolucao = 0.00
+    valor_deriva = 0.00
 
 st.subheader("Fontes de Incerteza Tipo B")
 
@@ -178,7 +202,7 @@ with c1:
     u_certificado = st.number_input(
         "Certificado",
         min_value=0.0,
-        value=0.25,
+        value=float(valor_certificado),
         step=0.01
     )
 
@@ -186,7 +210,7 @@ with c2:
     u_resolucao = st.number_input(
         "Resolução",
         min_value=0.0,
-        value=0.03,
+        value=float(valor_resolucao),
         step=0.01
     )
 
@@ -194,11 +218,9 @@ with c3:
     u_deriva = st.number_input(
         "Deriva",
         min_value=0.0,
-        value=0.00,
+        value=float(valor_deriva),
         step=0.01
     )
-
-st.divider()
 
 # ==========================
 # BOTÃO

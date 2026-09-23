@@ -344,142 +344,31 @@ if st.button(
             st.markdown(
                 f"""
                 <div style="
-                background:#730000;
-                color:white;
-                padding:35px;
-                border-radius:20px;
-                text-align:center;
-                font-size:34px;
-                font-weight:bold;
-                box-shadow:0px 6px 15px rgba(0,0,0,0.20);
+                    background:#f5f5f5;
+                    border-left:6px solid #730000;
+                    padding:20px;
+                    border-radius:10px;
+                    margin-top:10px;
                 ">
-                {media:.6f} ± {U:.6f} {unidade}
+                    <h4 style="color:#730000; margin-top:0;">
+                        📌 Principal contribuição
+                    </h4>
+
+                    <p style="font-size:18px; margin-bottom:8px;">
+                        <strong>{maior_fonte}</strong>
+                        ({maior_percentual:.2f}%)
+                    </p>
+
+                    <p style="font-size:16px; color:#333; margin-bottom:0;">
+                        {explicacao}
+                    </p>
                 </div>
                 """,
                 unsafe_allow_html=True
             )
-            st.divider()
 
-            total = (
-                u_a**2 +
-                u_certificado**2 +
-                u_resolucao**2 +
-                u_deriva**2
-            )
-
-            dados = pd.DataFrame(
-                {
-                    "Fonte": [
-                        "Tipo A",
-                        "Certificado",
-                        "Resolução",
-                        "Deriva"
-                    ],
-                    "Percentual": [
-                        (u_a**2 / total) * 100,
-                        (u_certificado**2 / total) * 100,
-                        (u_resolucao**2 / total) * 100,
-                        (u_deriva**2 / total) * 100
-                    ]
-                }
-            )
-
-            fig = px.pie(
-                dados,
-                names="Fonte",
-                values="Percentual",
-                hole=0.45,
-                title="Contribuição das Fontes de Incerteza"
-            )
-
-            fig.update_traces(
-                marker=dict(
-                    
-                    colors=[
-                        "#000000",
-                        "#3B3B3B",
-                        "#707070",
-                        "#BDBDBD"
-                    ]
-                )
-            )
-
-            fig.update_layout(
-                paper_bgcolor="white",
-                plot_bgcolor="white"
-            )
-
-            st.plotly_chart(
-                fig,
-                use_container_width=True
-            )
-            st.subheader("📖 Leitura do Gráfico")
-
-    maior_fonte = dados.loc[
-        dados["Percentual"].idxmax(),
-        "Fonte"
-    ]
-
-    maior_percentual = dados["Percentual"].max()
-
-    if maior_fonte == "Tipo A":
-        explicacao = (
-            "A maior contribuição para a incerteza vem das medições repetidas. "
-            "Isso indica que a variação observada durante as medições é a principal "
-            "fonte de incerteza do resultado."
-        )
-
-    elif maior_fonte == "Certificado":
-        explicacao = (
-            "A maior contribuição vem do certificado de calibração do instrumento. "
-            "Isso indica que a incerteza informada na calibração possui maior influência "
-            "sobre o resultado final."
-        )
-
-    elif maior_fonte == "Resolução":
-        explicacao = (
-            "A maior contribuição vem da resolução do instrumento. "
-            "Isso indica que a capacidade de leitura do instrumento possui maior influência "
-            "sobre a incerteza final."
-        )
-
-    else:
-        explicacao = (
-            "A maior contribuição vem da deriva do instrumento. "
-            "Isso indica que as alterações das características do instrumento ao longo "
-            "do tempo possuem maior influência sobre a incerteza final."
-        )
-
-    st.markdown(
-        f"""
-        <div style="
-            background:#f5f5f5;
-            border-left:6px solid #730000;
-            padding:20px;
-            border-radius:10px;
-            margin-top:10px;
-        ">
-            <h4 style="color:#730000; margin-top:0;">
-                📌 Principal contribuição
-            </h4>
-
-            <p style="font-size:18px; margin-bottom:8px;">
-                <strong>{maior_fonte}</strong>
-                ({maior_percentual:.2f}%)
-            </p>
-
-            <p style="font-size:16px; color:#333; margin-bottom:0;">
-                {explicacao}
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-    
     except ValueError:
-
-        st.error(
-            "Verifique os valores informados."
+        st.error("Verifique os valores informados.")
         )
 # HISTÓRICO
 if st.session_state.historico:

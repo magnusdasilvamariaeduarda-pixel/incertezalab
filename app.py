@@ -339,6 +339,21 @@ if st.button(
                     "Tipo B",
                     f"{u_b:.6f}"
                 )
+                st.divider()
+
+c1, c2 = st.columns(2)
+
+with c1:
+    st.metric(
+        "Incerteza Combinada (Uc)",
+        f"{uc:.6f}"
+    )
+
+with c2:
+    st.metric(
+        "Incerteza Expandida (U)",
+        f"{U:.6f} {unidade}"
+    )
                       # ==========================
             # GRÁFICO
             # ==========================
